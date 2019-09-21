@@ -15,6 +15,7 @@ class Photo extends Component {
           src="https://mars.jpl.nasa.gov/msl-raw-images/proj/msl/redops/ods/surface/sol/00990/opgs/edr/fcam/FRB_485373416EDR_F0480458FHAZ00323M_.JPG"
           alt="mars landscape"
         />
+        "Test Code test code test code"
       </div>
     );
   }
