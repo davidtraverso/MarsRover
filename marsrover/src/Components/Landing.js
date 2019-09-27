@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Photo from './Photo';
 
 class Landing extends Component {
   constructor(props) {
@@ -9,7 +10,7 @@ class Landing extends Component {
       solMax: 0,
       cameraSelection: '',
       rover: '',
-      HTTPRequest: '',
+      APIData: [],
       isReady: true
     };
 
@@ -51,16 +52,36 @@ class Landing extends Component {
 
   // HTTP Request on button click
   handleClick = () => {
-    let trimIndex = this.state.cameraSelection.indexOf('|');
-    this.setState({
-      HTTPRequest:
-        'https://api.nasa.gov/mars-photos/api/v1/rovers/' +
-        this.state.rover +
-        '/photos?sol=' +
-        this.state.solSelection +
-        '&api_key=7bmHdyZcr9I0s5h0ZU02R58oeCkEu3EjmkZSKdX8&camera=' +
-        this.state.cameraSelection.slice(0, trimIndex - 1)
-    });
+    var trimIndex = this.state.cameraSelection.indexOf('|');
+    var url =
+      'https://api.nasa.gov/mars-photos/api/v1/rovers/' +
+      this.state.rover +
+      '/photos?sol=' +
+      this.state.solSelection +
+      '&api_key=7bmHdyZcr9I0s5h0ZU02R58oeCkEu3EjmkZSKdX8&camera=' +
+      this.state.cameraSelection.slice(0, trimIndex - 1);
+
+    // Query the API
+    const getRequest = async () => {
+      const getResponse = await fetch(url);
+      const getJSON = await getResponse.json();
+      // Test results
+      console.log('API data:');
+      console.log(getJSON);
+
+      // Extract photo sources
+      var photoSources = [];
+      // ** write the function here **
+      // ** write the function here **
+      // ** write the function here **
+
+      this.setState({
+        APIData: photoSources
+      });
+    };
+
+    // Invoke it!
+    getRequest();
   };
 
   render() {
@@ -77,6 +98,9 @@ class Landing extends Component {
       'NAVCAM | Navigation Camera',
       'PANCAM | Panoramic Camera'
     ];
+
+    var source = [];
+
     return (
       <div>
         <h1>This is the landing page!</h1>
@@ -110,7 +134,9 @@ class Landing extends Component {
         <br />
         <br />
         <input type="button" value="Show me Mars!" disabled={this.state.isReady} onClick={this.handleClick} />
-        <p>{this.state.HTTPRequest}</p>
+        <div>
+          <Photo source={this.state.APIData} />
+        </div>
       </div>
     );
   }
