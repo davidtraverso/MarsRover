@@ -102,41 +102,53 @@ class Landing extends Component {
     var source = [];
 
     return (
-      <div>
-        <h1>This is the landing page!</h1>
-        <hr />
-        <h3>Query criteria</h3>
-        <select id="roverSelect" name="rover" onChange={this.handleSelect}>
-          {rovers.map((rover, i) => {
-            return (
-              <option key={i} value={rover}>
-                {rover}
-              </option>
-            );
-          })}
-        </select>
-        <br />
-        <br />
-        <p>Sol selection: {this.state.solSelection}</p>
-        0 <input type="range" min="0" max={this.state.solRange[2]} onChange={this.handleChange} />{' '}
-        {this.state.solRange[solRange]}
-        <br />
-        <br />
-        <select id="cameraSelect" name="cameraSelection" onChange={this.handleSelect}>
-          {cameras.map((camera, i) => {
-            return (
-              <option key={i} value={camera}>
-                {camera}
-              </option>
-            );
-          })}
-        </select>
-        <br />
-        <br />
-        <input type="button" value="Show me Mars!" disabled={this.state.isReady} onClick={this.handleClick} />
-        <div>
-          <Photo source={this.state.APIData} />
-        </div>
+      <div className="main">
+        <h1 id="pageTitle">Welcome to the Red Planet</h1>
+        <section className="rover">
+          <h3>Rover selection:</h3>
+          <select id="roverSelect" name="rover" onChange={this.handleSelect}>
+            {rovers.map((rover, i) => {
+              return (
+                <option key={i} value={rover}>
+                  {rover}
+                </option>
+              );
+            })}
+          </select>
+        </section>
+
+        <section className="sol">
+          <p>Sol selection: {this.state.solSelection}</p>
+          0 <input type="range" min="0" max={this.state.solRange[2]} onChange={this.handleChange} />{' '}
+          {this.state.solRange[solRange]}
+        </section>
+
+        <section className="cam">
+          <p>Camera selection:</p>
+          <select id="cameraSelect" name="cameraSelection" onChange={this.handleSelect}>
+            {cameras.map((camera, i) => {
+              return (
+                <option key={i} value={camera}>
+                  {camera}
+                </option>
+              );
+            })}
+          </select>
+        </section>
+
+        <section className="go">
+          <input type="button" value="Show me Mars!" disabled={this.state.isReady} onClick={this.handleClick} />
+        </section>
+
+        <section className="image">
+          <div>
+            <Photo source={this.state.APIData} />
+          </div>
+        </section>
+
+        <section className="footer">
+          <p>Courtesy of MarsPhoto API maintained by ________</p>
+        </section>
       </div>
     );
   }
