@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Photo from './Photo';
+import Button from './Button';
+import Thumbnail from './Thumbnail';
 
 class Landing extends Component {
   constructor(props) {
@@ -10,7 +12,7 @@ class Landing extends Component {
       solMax: 0,
       cameraSelection: '',
       rover: '',
-      APIData: [],
+      APIData: ['https://mars.nasa.gov/mer/gallery/all/1/f/276/1F152687335EFF37JHP1201L0M1-BR.JPG'],
       isReady: true
     };
 
@@ -106,6 +108,10 @@ class Landing extends Component {
         <h1 id="pageTitle">Welcome to the Red Planet</h1>
         <section className="rover">
           <h3>Rover selection:</h3>
+          <h5>Curiosity</h5>
+          <Button rovers={['https://mars.nasa.gov/layout/general/images/msl.png']}/>
+
+        
           <select id="roverSelect" name="rover" onChange={this.handleSelect}>
             {rovers.map((rover, i) => {
               return (
@@ -141,7 +147,7 @@ class Landing extends Component {
         </section>
 
         <section className="image">
-          <div>
+          <div id="imgWrapper">
             <Photo source={this.state.APIData} />
           </div>
         </section>
