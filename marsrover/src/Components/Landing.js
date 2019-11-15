@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Photo from './Photo';
 import Button from './Button';
 import Thumbnail from './Thumbnail';
+import Cameras from './Cameras';
 
 class Landing extends Component {
   constructor(props) {
@@ -17,10 +18,20 @@ class Landing extends Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
-    this.handleSelect = this.handleSelect.bind(this);
+    // this.handleSelect = this.handleSelect.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.validateButton = this.validateButton.bind(this);
   }
+
+  // Button select (higher order)
+  buttonSelect = input => e => {
+    e.preventDefault();
+    console.log(input);
+    console.log(e.target.value);
+    this.setState({
+      [input]: e.target.value
+    });
+  };
 
   // Range input
   handleChange = e => {
@@ -32,17 +43,17 @@ class Landing extends Component {
   };
 
   // Select input
-  handleSelect = e => {
+  /* handleSelect = e => {
     e.preventDefault();
     this.setState({
       [e.target.name]: e.target.value
     });
     this.validateButton();
-  };
+  }; */
 
   // Make the button clickable IFF all selection criteria has been made.
   validateButton = () => {
-    if (this.state.cameraSelection !== '' && this.state.rover !== '' && this.state.solSelection !== '') {
+    if (this.state.cameraSelection != '' && this.state.rover != '' && this.state.solSelection != '') {
       this.setState({
         isReady: false
       });
@@ -106,13 +117,13 @@ class Landing extends Component {
     return (
       <div className="main">
         <h1 id="pageTitle">Welcome to the Red Planet</h1>
+
+        {/* ROVER SLECTION */}
         <section className="rover">
           <h3>Rover selection:</h3>
           <h5>Curiosity</h5>
-          <Button rovers={['https://mars.nasa.gov/layout/general/images/msl.png']}/>
-
-        
-          <select id="roverSelect" name="rover" onChange={this.handleSelect}>
+          <Button rovers={['https://mars.nasa.gov/layout/general/images/msl.png']} onClick={this.buttonSelect}/>
+          {/* <select id="roverSelect" name="rover" onChange={this.handleSelect}>
             {rovers.map((rover, i) => {
               return (
                 <option key={i} value={rover}>
@@ -120,30 +131,24 @@ class Landing extends Component {
                 </option>
               );
             })}
-          </select>
+          </select> */}
         </section>
 
+        {/* SOL SLECTION */}
         <section className="sol">
           <p>Sol selection: {this.state.solSelection}</p>
           0 <input type="range" min="0" max={this.state.solRange[2]} onChange={this.handleChange} />{' '}
           {this.state.solRange[solRange]}
         </section>
 
+        {/* CAMERA SLECTION */}
         <section className="cam">
           <p>Camera selection:</p>
-          <select id="cameraSelect" name="cameraSelection" onChange={this.handleSelect}>
-            {cameras.map((camera, i) => {
-              return (
-                <option key={i} value={camera}>
-                  {camera}
-                </option>
-              );
-            })}
-          </select>
+          <Cameras cameras={['cam1', 'cam2', 'cam3']} onClick={this.buttonSelect}/>
         </section>
 
         <section className="go">
-          <input type="button" value="Show me Mars!" disabled={this.state.isReady} onClick={this.handleClick} />
+          <button onClick={this.validateButton}>Show me Mars!</button>
         </section>
 
         <section className="image">
