@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class Photo extends Component {
   render() {
     return (
-      <div>
+      <div id="photoMain">
         <img
           src={
             this.props.source[0] ||

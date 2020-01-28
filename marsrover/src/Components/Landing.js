@@ -3,12 +3,13 @@ import Photo from './Photo';
 import Button from './Button';
 import Thumbnail from './Thumbnail';
 import Cameras from './Cameras';
+import * as Selections from '../modules/selections';
 
 class Landing extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      solRange: ['---', '2530', '2208', '5111'],
+      solRange: ['---', '2530', '2654', '5111'],
       solSelection: 0,
       solMax: 0,
       cameraSelection: '',
@@ -100,17 +101,6 @@ class Landing extends Component {
   render() {
     var rovers = ['Curiosity', 'Spirit', 'Opportunity'];
     var solRange = 0;
-    var cameras = [
-      '--- Select a camera ---',
-      'FHAZ | Front Hazard Avoidance Camera',
-      'RHAZ	| Rear Hazard Avoidance Camera',
-      'MAST	| Mast Camera',
-      'CHEMCAM | Chemistry and Camera Complex',
-      'MAHLI | Mars Hand Lens Imager',
-      'MARDI | Mars Descent Imager',
-      'NAVCAM | Navigation Camera',
-      'PANCAM | Panoramic Camera'
-    ];
 
     var source = [];
 
@@ -120,9 +110,9 @@ class Landing extends Component {
 
         {/* ROVER SLECTION */}
         <section className="rover">
-          <h3>Rover selection:</h3>
+          <h4>Rover selection:</h4>
           <h5>Curiosity</h5>
-          <Button rovers={['https://mars.nasa.gov/layout/general/images/msl.png']} onClick={this.buttonSelect}/>
+          <Button rovers={['https://mars.nasa.gov/layout/general/images/msl.png']} onClick={this.buttonSelect} />
           {/* <select id="roverSelect" name="rover" onChange={this.handleSelect}>
             {rovers.map((rover, i) => {
               return (
@@ -137,14 +127,14 @@ class Landing extends Component {
         {/* SOL SLECTION */}
         <section className="sol">
           <p>Sol selection: {this.state.solSelection}</p>
-          0 <input type="range" min="0" max={this.state.solRange[2]} onChange={this.handleChange} />{' '}
-          {this.state.solRange[solRange]}
+          0 <input type="range" min="0" max={this.state.solRange[2]} onChange={this.handleChange} />
+          &nbsp;{this.state.solRange[2]}
         </section>
 
         {/* CAMERA SLECTION */}
         <section className="cam">
           <p>Camera selection:</p>
-          <Cameras cameras={['cam1', 'cam2', 'cam3']} onClick={this.buttonSelect}/>
+          <Cameras cameras={Selections.cameras} onClick={this.buttonSelect} />
         </section>
 
         <section className="go">
