@@ -14,7 +14,7 @@ class Landing extends Component {
       solMax: 0,
       cameraSelection: '',
       rover: '',
-      APIData: ['https://mars.nasa.gov/mer/gallery/all/1/f/276/1F152687335EFF37JHP1201L0M1-BR.JPG'],
+      APIData: ['https://source.unsplash.com/pnPS3Ox_2vE'],
       isReady: true
     };
 
@@ -42,15 +42,6 @@ class Landing extends Component {
     });
     this.validateButton();
   };
-
-  // Select input
-  /* handleSelect = e => {
-    e.preventDefault();
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-    this.validateButton();
-  }; */
 
   // Make the button clickable IFF all selection criteria has been made.
   validateButton = () => {
@@ -86,7 +77,9 @@ class Landing extends Component {
       // Extract photo sources
       var photoSources = [];
       // ** write the function here **
-      // ** write the function here **
+      getJSON.photos.map(i => {
+        photoSources.push(i.img_src);
+      });
       // ** write the function here **
 
       this.setState({
@@ -107,21 +100,21 @@ class Landing extends Component {
     return (
       <div className="main">
         <h1 id="pageTitle">Welcome to the Red Planet</h1>
+        <p>
+          <ul>
+            Current State:
+            <li>solSelection: {this.state.solSelection}</li>
+            <li>cameraSelection: {this.state.cameraSelection}</li>
+            <li>rover: {this.state.rover}</li>
+            <li>APIData: {this.state.APIData.length}</li>
+          </ul>
+        </p>
 
         {/* ROVER SLECTION */}
         <section className="rover">
           <h4>Rover selection:</h4>
           <h5>Curiosity</h5>
           <Button rovers={['https://mars.nasa.gov/layout/general/images/msl.png']} onClick={this.buttonSelect} />
-          {/* <select id="roverSelect" name="rover" onChange={this.handleSelect}>
-            {rovers.map((rover, i) => {
-              return (
-                <option key={i} value={rover}>
-                  {rover}
-                </option>
-              );
-            })}
-          </select> */}
         </section>
 
         {/* SOL SLECTION */}
@@ -138,7 +131,7 @@ class Landing extends Component {
         </section>
 
         <section className="go">
-          <button onClick={this.validateButton}>Show me Mars!</button>
+          <button onClick={this.handleClick}>Show me Mars!</button>
         </section>
 
         <section className="image">

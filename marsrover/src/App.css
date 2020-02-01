@@ -24,6 +24,12 @@ body {
     'footer footer';
 }
 
+.main ul {
+  z-index: 3;
+  background: blue;
+  overflow: scroll;
+}
+
 #pageTitle {
   grid-area: nav;
   text-align: center;
