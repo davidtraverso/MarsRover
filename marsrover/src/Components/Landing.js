@@ -9,29 +9,31 @@ class Landing extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      solRange: ['---', '2530', '2654', '5111'],
+      solRange: ['---', 2530, 2654, 5111],
       solSelection: 0,
       solMax: 0,
-      cameraSelection: '',
-      rover: '',
-      APIData: ['https://source.unsplash.com/pnPS3Ox_2vE'],
-      isReady: true
+      cameraSelection: null,
+      rover: null,
+      APIData: [],
+      placeholder: 'https://source.unsplash.com/pnPS3Ox_2vE',
+      heroSrc: 'https://source.unsplash.com/pnPS3Ox_2vE',
+      isDisabled: true
     };
 
     this.handleChange = this.handleChange.bind(this);
-    // this.handleSelect = this.handleSelect.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.validateButton = this.validateButton.bind(this);
+    this.increment = this.increment.bind(this);
+    this.imgClick = this.imgClick.bind(this);
   }
 
   // Button select (higher order)
   buttonSelect = input => e => {
     e.preventDefault();
-    console.log(input);
-    console.log(e.target.value);
     this.setState({
       [input]: e.target.value
     });
+    this.validateButton();
   };
 
   // Range input
@@ -43,13 +45,24 @@ class Landing extends Component {
     this.validateButton();
   };
 
+  // Increment & Decrement
+  increment = e => {
+    e.preventDefault();
+    var currentSelection = parseInt(this.state.solSelection);
+    var incrementor = parseInt(e.target.name);
+    this.setState({
+      solSelection: currentSelection + incrementor
+    });
+  };
+
   // Make the button clickable IFF all selection criteria has been made.
   validateButton = () => {
-    if (this.state.cameraSelection != '' && this.state.rover != '' && this.state.solSelection != '') {
+    if (this.state.cameraSelection && this.state.rover && this.state.solSelection) {
       this.setState({
         isReady: false
       });
       console.log('Complete form');
+      this.setState({ isDisabled: false });
     } else {
       console.log('Incomplete form');
     }
@@ -57,6 +70,7 @@ class Landing extends Component {
 
   // HTTP Request on button click
   handleClick = () => {
+    this.validateButton();
     var trimIndex = this.state.cameraSelection.indexOf('|');
     var url =
       'https://api.nasa.gov/mars-photos/api/v1/rovers/' +
@@ -91,6 +105,12 @@ class Landing extends Component {
     getRequest();
   };
 
+  // Thumbnail onClick property to toggle Hero image
+  imgClick = e => {
+    e.preventDefault();
+    this.setState({ heroSrc: e.target.src });
+  };
+
   render() {
     var rovers = ['Curiosity', 'Spirit', 'Opportunity'];
     var solRange = 0;
@@ -100,43 +120,57 @@ class Landing extends Component {
     return (
       <div className="main">
         <h1 id="pageTitle">Welcome to the Red Planet</h1>
-        <p>
-          <ul>
-            Current State:
-            <li>solSelection: {this.state.solSelection}</li>
-            <li>cameraSelection: {this.state.cameraSelection}</li>
-            <li>rover: {this.state.rover}</li>
-            <li>APIData: {this.state.APIData.length}</li>
-          </ul>
-        </p>
+        <ul id="criteria">
+          <li>Rover</li>
+          <li>Sol Date</li>
+          <li>Camera</li>
+        </ul>
 
-        {/* ROVER SLECTION */}
+        {/* ROVER Selection */}
         <section className="rover">
-          <h4>Rover selection:</h4>
-          <h5>Curiosity</h5>
+          <h4 id="roverId">Rover selection:</h4>
+          <p className="roverLabel">Curiosity</p>
+          <div id="roverIcon">
           <Button rovers={['https://mars.nasa.gov/layout/general/images/msl.png']} onClick={this.buttonSelect} />
+          </div>
         </section>
 
-        {/* SOL SLECTION */}
+        {/* SOL Selection */}
         <section className="sol">
-          <p>Sol selection: {this.state.solSelection}</p>
-          0 <input type="range" min="0" max={this.state.solRange[2]} onChange={this.handleChange} />
-          &nbsp;{this.state.solRange[2]}
+          <h4 id="solId">Sol selection: </h4>
+          <div id="solState">
+            <button name={-1} onClick={this.increment}>
+              &#60;
+            </button>{' '}
+            {this.state.solSelection}{' '}
+            <button name={1} onClick={this.increment}>
+              &#62;
+            </button>
+          </div>
+          <div id="solSelect">
+            0 <input type="range" min={0} max={this.state.solRange[2]} onChange={this.handleChange} />
+            &nbsp;{this.state.solRange[2]}
+          </div>
         </section>
 
-        {/* CAMERA SLECTION */}
+        {/* CAMERA Selection */}
         <section className="cam">
-          <p>Camera selection:</p>
+          <h4>Camera selection:</h4>
           <Cameras cameras={Selections.cameras} onClick={this.buttonSelect} />
         </section>
 
+        {/* FETCH Button */}
         <section className="go">
-          <button onClick={this.handleClick}>Show me Mars!</button>
+          <button onClick={this.handleClick} disabled={this.state.isDisabled}>
+            Show me Mars!
+          </button>
         </section>
 
+        {/* PHOTO Render */}
         <section className="image">
           <div id="imgWrapper">
-            <Photo source={this.state.APIData} />
+            <Photo hero={this.state.heroSrc} />
+            <Thumbnail source={this.state.APIData} imgClick={this.imgClick} />
           </div>
         </section>
 

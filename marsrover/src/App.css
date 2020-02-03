@@ -24,10 +24,20 @@ body {
     'footer footer';
 }
 
-.main ul {
+#criteria {
+  padding: 0 0 0 3%;
   z-index: 3;
-  background: blue;
-  overflow: scroll;
+  margin: auto;
+  background: pink;
+  list-style: none;
+  text-align: center;
+  display: flex;
+  width: 90%;
+}
+
+#criteria li {
+  text-align: center;
+  margin: auto;
 }
 
 #pageTitle {
@@ -38,8 +48,30 @@ body {
 .rover {
   grid-area: rover;
   background: lightgrey;
-  padding: 0;
-  text-align: center;
+  padding: 0 0 0 3%;
+  display: grid;
+  grid-template-columns: 0.3fr 0.7fr;
+  grid-template-rows: 1fr 2fr;
+  grid-template-areas:
+    'id label'
+    'id icon';
+}
+
+#roverId {
+  grid-area: id;
+  align-self: center;
+}
+
+.roverLabel {
+  grid-area: label;
+  align-self: end;
+  justify-self: start;
+  margin: 0 0 0 20%;
+}
+
+#roverIcon {
+  grid-area: icon;
+  margin: 3% 0 0 16%;
 }
 
 .rover input:hover,
@@ -53,13 +85,43 @@ body {
 .sol {
   grid-area: sol;
   background: grey;
-  text-align: center;
-  width: 100%;
+  padding: 0 0 0 3%;
+  display: grid;
+  grid-template-columns: 0.3fr 0.7fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas:
+    'id state'
+    'id input';
+  align-items: center;
 }
 
-.sol input {
+#solId {
+  grid-area: id;
+  align-self: start;
+}
+
+#solState {
+  grid-area: state;
+  margin: 0.6em 2em 0 2em;
+  justify-self: start;
+  text-align: center;
+  /* border: 1px solid white; */
   width: 50%;
-  margin: auto;
+}
+
+#solState button {
+  margin: 0 1.5em;
+  background-color: darkgrey;
+  border: none;
+  color: white;
+  font-size: 0.1em;
+  border-radius: 5px;
+}
+
+#solSelect {
+  grid-area: input;
+  width: 100%;
+  margin: 0 1em;
 }
 
 .cam {
@@ -98,7 +160,6 @@ body {
   border: 5px solid white;
   width: 100%;
   height: 100%;
-  /* overflow: hidden; */
   background: red;
   padding: 0;
   overflow: hidden;
@@ -110,17 +171,13 @@ body {
   background: pink;
   height: 100%;
   display: grid;
-  grid-template-columns: 0.5fr 4fr 1fr;
-  grid-template-rows: repeat(4, 1fr);
-  grid-template-areas:
-    '. main thumb'
-    '. main thumb'
-    '. main thumb'
-    '. main thumb';
+  grid-template-columns: 1fr 0.2fr 3fr 0.2fr;
+  /* grid-template-rows: repeat(4, 1fr); */
+  grid-template-areas: 'thumbs . hero .';
 }
 
 #photoMain {
-  grid-area: main;
+  grid-area: hero;
   place-self: center;
   object-fit: scale-down;
   background-color: lime;
@@ -132,29 +189,31 @@ body {
   width: 100%;
 }
 
-.image ul {
-  grid-area: thumbnails;
+#thumbWrapper {
+  grid-area: thumbs;
+  overflow: scroll;
+}
+
+#thumbWrapper ul {
   display: flex;
-  position: relative;
   flex-direction: column;
   list-style: none;
-  background: purple;
+  background: rgba(255, 255, 0, 0.315);
   margin: auto;
-  text-align: center;
+  text-align: right;
   padding: 0;
-  height: 100%;
 }
 
-.image li {
+#thumbWrapper li {
   flex: 1;
   text-decoration: none;
-  margin: 0.2em 0;
-  padding: 0;
-  border: solid white 2px;
+  padding: 2px 0;
+  border: solid yellow 1px;
 }
 
-.image li img {
-  max-height: 200px;
+#thumbWrapper li img {
+  min-height: 10vh;
+  max-height: 15vh;
 }
 
 .footer {

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Landing from './Components/Landing';
-import Photo from './Components/Photo';
 import './App.css';
 
 class App extends Component {
