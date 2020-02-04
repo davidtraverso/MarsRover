@@ -6,7 +6,7 @@ const Cameras = props => {
   return (
     <div>
       {cameras.map((cam, i) => {
-      return <input type="button" key={i} value={cam} onClick={onClick('cameraSelection')}/>;
+        return <input type="button" key={i} value={cam} name="camera" onClick={onClick} />;
       })}
     </div>
   );
