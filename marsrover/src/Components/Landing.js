@@ -6,6 +6,7 @@ import Button from './Button';
 import Thumbnail from './Thumbnail';
 import Cameras from './Cameras';
 import Go from './Go';
+import Validated from './Validated';
 import * as Selections from '../modules/selections';
 
 function Landing() {
@@ -101,15 +102,14 @@ function Landing() {
 
   return (
     <div className="main">
-      <h1 id="pageTitle">Welcome to the Red Planet</h1>
+      <h1 id="pageTitle"></h1>
 
       {/* ROVER Selection */}
       <section className="rover">
         <h4 id="roverId">
-          Rover selection:
-          <span className="validIcon">
-            <FontAwesomeIcon icon={faCheckCircle} />
-          </span>
+          Rover <br />
+          selection:
+          <Validated isVisible={rover} />
         </h4>
         <p className="roverLabel">Curiosity</p>
         <div id="roverIcon">
@@ -121,9 +121,7 @@ function Landing() {
         <h4 id="solId">
           Sol <br />
           selection:
-          <span className="validIcon">
-            <FontAwesomeIcon visibility={visibility} icon={faCheckCircle} />
-          </span>
+          <Validated isVisible={sol} />
         </h4>
         <div id="solState">
           <button name={-1} onClick={increment}>
@@ -141,13 +139,12 @@ function Landing() {
       </section>
       {/* CAMERA Selection */}
       <section className="cam">
-        <h4>
-          Camera selection:
-          <span className="validIcon">
-            <FontAwesomeIcon icon={faCheckCircle} />
-          </span>
+        <h4 id="camId">
+          Camera <br />
+          selection:
+          <Validated isVisible={camera} />
         </h4>
-        <Cameras cameras={Selections.cameras} onClick={buttonSelect} />
+        <Cameras cameras={Selections.cameras} onClick={buttonSelect} selected={camera} />
       </section>
       {/* PHOTO Render */}
       <section className="image">
@@ -157,7 +154,7 @@ function Landing() {
         </div>
       </section>
       {/* GO Render */}
-      <Go handleClick={handleClick} isDisabled={isDisabled} />
+      <Go handleClick={handleClick} isDisabled={isDisabled} selected={!isDisabled} />
       <section className="footer">
         <p>Courtesy of MarsPhoto API maintained by ________</p>
       </section>
