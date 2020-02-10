@@ -151,7 +151,10 @@ function Landing() {
       {/* GO Render */}
       <Go handleClick={handleClick} isDisabled={isDisabled} selected={!isDisabled} />
       <section className="footer">
-        <p>Courtesy of MarsPhoto API maintained by ________</p>
+        <p>
+          Courtesy of MarsPhoto API maintained by{' '}
+          <a href="https://github.com/chrisccerami/mars-photo-api">Chris Cerami</a>
+        </p>
       </section>
     </div>
   );
