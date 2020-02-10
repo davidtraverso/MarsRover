@@ -1,0 +1,253 @@
+:root {
+  --bg-color-red: #d61d4e;
+  --bg-color-img: rgb(211, 211, 211);
+  --bg-color-header: #770303;
+  --bg-color-drawer: #ffffff13;
+  --txt: black;
+  --navtxt: white;
+  --selected: palegreen;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: rgb(0, 0, 0);
+  background: linear-gradient(225deg, rgba(0, 0, 0, 1) 0%, rgba(177, 57, 49, 1) 25%, rgba(0, 0, 0, 1) 76%);
+  color: var(--navtxt);
+}
+
+.main {
+  margin: 0 3vw;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 10vh 25vh 17vh 32vh 10vh 6vh;
+  grid-template-areas:
+    '. nav'
+    'rover image'
+    'sol image'
+    'cam image'
+    'go image'
+    'footer footer';
+  color: var(--navtxt);
+}
+
+#pageTitle {
+  grid-area: nav;
+  text-align: center;
+}
+
+h4 {
+  font-size: 1.5rem;
+}
+
+.validIcon {
+  display: block;
+  margin: 8% 0 0 18%;
+  color: var(--selected);
+}
+
+.rover {
+  grid-area: rover;
+  background: var(--bg-color-drawer);
+  padding: 0 0 0 3%;
+  display: grid;
+  grid-template-columns: 0.3fr 0.7fr;
+  grid-template-rows: 1fr 2fr;
+  grid-template-areas:
+    'id label'
+    'id icon';
+}
+
+#roverId {
+  grid-area: id;
+  align-self: center;
+  justify-self: center;
+}
+
+.roverLabel {
+  grid-area: label;
+  align-self: end;
+  justify-self: start;
+  margin: 0 0 0 20%;
+}
+
+#roverIcon {
+  grid-area: icon;
+  margin: 3% 0 0 16%;
+}
+
+.rover input:hover,
+.rover input:focus {
+  background-color: rgb(219, 219, 219);
+  border: 1px var(--selected) solid;
+  border-radius: 5px;
+  box-shadow: 5px 5px 15px;
+}
+
+.sol {
+  grid-area: sol;
+  background: var(--bg-color-drawer);
+  padding: 0 0 0 3%;
+  display: grid;
+  grid-template-columns: 0.3fr 0.7fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas:
+    'id state'
+    'id input';
+  align-items: center;
+}
+
+#solId {
+  grid-area: id;
+  align-self: center;
+  justify-self: center;
+}
+
+#solState {
+  grid-area: state;
+  align-self: end;
+  justify-self: center;
+  text-align: center;
+  font-size: 1.3rem;
+  /* border: 1px solid white; */
+  width: 50%;
+}
+
+#solState button {
+  margin: 0 1.5em;
+  background-color: darkgrey;
+  border: none;
+  color: white;
+  font-size: 0.1em;
+  border-radius: 5px;
+}
+
+#solSelect {
+  grid-area: input;
+  align-self: center;
+  text-align: center;
+  margin: 0 10% 0 -10%;
+  width: 100%;
+  font-size: 1.2rem;
+}
+
+.cam {
+  grid-area: cam;
+  background: var(--bg-color-drawer);
+  /* margin: auto; */
+  padding: 0 0 0 3%;
+  display: grid;
+  grid-template-columns: 0.3fr 0.7fr;
+  align-items: center;
+}
+
+#camId {
+  align-self: center;
+  justify-self: center;
+}
+
+.camButton {
+  margin: 0.2em 1em;
+  background: rgba(148, 148, 148, 0.637);
+  width: 80%;
+  border-radius: 5px;
+  color: white;
+}
+
+.camButton:active,
+.camButton:focus {
+  outline-color: var(--selected);
+}
+
+.selected {
+  background: var(--selected) !important;
+  color: black !important;
+}
+
+.go {
+  grid-area: go;
+  background: var(--bg-color-drawer);
+  text-align: center;
+  position: relative;
+}
+
+.go button {
+  font-size: 2em;
+  position: relative;
+  top: 20%;
+  height: 60%;
+  width: 80%;
+  background: var(--bg-color-drawer);
+  border: none;
+}
+
+.image {
+  grid-area: image;
+  width: 100%;
+  height: 100%;
+  /* background: red; */
+  padding: 0;
+  overflow: hidden;
+}
+
+#imgWrapper {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 0.2fr 3fr 0.2fr;
+  grid-template-rows: 3fr 1fr;
+  grid-template-areas:
+    '. hero .'
+    'thumbs thumbs thumbs';
+}
+
+#photoMain {
+  grid-area: hero;
+  align-self: start;
+  justify-self: center;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+#photoMain img {
+  min-width: 80%;
+  max-height: 65vh;
+  object-fit: scale-down;
+}
+
+#thumbWrapper {
+  grid-area: thumbs;
+  align-self: end;
+  overflow: scroll;
+}
+
+#thumbWrapper ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  list-style: none;
+  /* background: rgba(255, 255, 0, 0.315); */
+  /* margin: auto; */
+  align-items: center;
+  padding: 0;
+}
+
+#thumbWrapper li {
+  flex: 0.2;
+  text-decoration: none;
+  text-align: center;
+}
+
+#thumbWrapper li img {
+  min-height: 10vh;
+  max-height: 13vh;
+}
+
+.footer {
+  grid-area: footer;
+  background: rgba(0, 0, 0, 0.329);
+  text-align: center;
+}
