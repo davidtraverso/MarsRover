@@ -27,7 +27,7 @@ function Landing() {
       ? setRover(e.target.name)
       : e.target.name === 'camera'
       ? setCamera(e.target.value)
-      : console.log(e.target);
+      : console.log('No target name or value: ' + e.target);
   }
 
   // Range input
@@ -42,12 +42,10 @@ function Landing() {
     var incrementor = parseInt(e.target.name);
     // iterate Sol counter
     setSol(currentSelection + incrementor);
-    console.log(sol);
   }
 
   // Make the button clickable IFF all selection criteria has been made.
   function validateButton() {
-    console.log(camera, rover, sol);
     camera && rover && sol ? setIsDisabled(false) : console.log(': Incomplete form');
   }
 
@@ -92,7 +90,6 @@ function Landing() {
   // Check for button validation
   useEffect(() => {
     validateButton();
-    console.log('validating');
   });
 
   return (
